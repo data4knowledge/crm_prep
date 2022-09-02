@@ -86,9 +86,9 @@ def write_relationships(the_data, csv_filename, id_field="id:ID"):
 delete_dir("load_data")
 
 for k, v in nodes.items():
-  csv_filename = "load_data/node-%s.csv" % (k.lower())
+  csv_filename = "load_data/node-%s-1.csv" % (k.lower())
   write_nodes(v, csv_filename)
 
 for k, v in relationships.items():
-  csv_filename = "load_data/relationship-%s.csv" % (k.lower())
+  csv_filename = "load_data/relationship-%s-1.csv" % (k.lower())
   write_relationships(v, csv_filename)

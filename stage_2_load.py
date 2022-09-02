@@ -14,7 +14,6 @@ def file_load(driver):
       load_files.append({ "label": pascalcase(parts[1]), "filename": file_path })
     else:
       load_files.append({ "type": parts[1].upper(), "filename": file_path })
-
   result = None
   session = driver.session()
   nodes = []
