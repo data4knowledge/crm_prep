@@ -1,0 +1,120 @@
+﻿---
+common:
+  nodes:
+  - name: "LOCATION"
+    nodes:
+    - name: "PORTION"
+      data_types: 
+      - coding
+    - name: "DIRECTIONALITY"
+      data_types: 
+      - coding
+    - name: "LATERALITY"
+      data_types: 
+      - coding
+  - name: "PERIOD"
+    nodes:
+    - name: "PERIOD START"
+      data_types:
+      - date_time
+    - name: "PERIOD END"
+      data_types:
+      - date_time
+  - name: "DATE TIME"
+    data_types:
+    - date_time
+root: 
+  name: "CANONICAL MODEL"
+  nodes:
+  - name: "ADVERSE EVENT"
+    nodes:
+    - name: "PERIOD"
+    - name: "SERIOUS"
+    - name: "LOCATION"
+    - name: "SEVERITY"
+    - name: "CAUSALITY"
+      nodes:
+      - name: "NON STUDY TREATMENT"
+      - name: "RELATED"
+      - name: "DEVICE"
+    - name: "TOXICITY"
+      nodes:
+      - name: "GRADE"
+    - name: "RESPONSE"
+      nodes:
+      - name: "OTHER"
+      - name: "CONCOMITANT TREATMENT"
+      - name: "STUDY TREATMENT"
+      - name: "DEVICE"
+    - name: "TERM"
+      data_types:
+        - codeable_concept
+    - name: "CATEGORY"
+  - name: "OBSERVATION"
+    nodes:
+    - name: "CONSCIOUS"
+    - name: "REFERENCE RESULT"
+    - name: "SENSITIVITY"
+    - name: "TEST"
+      data_types: 
+      - coding
+    - name: "FASTING"
+    - name: "SEVERITY"
+    - name: "EPIDEMIC / PANDEMIC"
+    - name: "REASON PERFORMED"
+    - name: "LOCATION"
+    - name: "BODY SYSTEM"
+    - name: "LOINC REF"
+    - name: "LEAD"
+    - name: "METHOD"
+    - name: "RUN ID"
+    - name: "SPECIMEN"
+      nodes:
+      - name: "CONDITION"
+      - name: "USABLE"
+      - name: "ANATOMIC REGION"
+    - name: "DATE TIME"
+    - name: "TOXICITY"
+      nodes:
+      - name: "GRADE"
+    - name: "RANGE"
+      nodes:
+      - name: "LOW"
+      - name: "HI"
+    - name: "LAB"
+    - name: "OBSERVATION RESULT"
+      nodes:
+      - name: "RESULT"
+        data_types: 
+        - coding
+        - quantity
+      - name: "RESULT OTHER"
+        data_types: 
+        - string
+      - name: "DISTRIBUTION"
+      - name: "CHRONICITY"
+      - name: "CODED"
+      - name: "TYPE"
+      - name: "SCALE"
+  - name: "THERAPEUTIC INTERVENTION"
+    nodes:
+    - name: "DESCRIPTION"
+    - name: "DATE TIME"
+    - name: "METHOD"
+    - name: "EPIDEMIC / PANDEMIC"
+    - name: "CATEGORY"
+    - name: "ADJUSTMENT"
+    - name: "DAILY DOSE"
+    - name: "FREQUENCY"
+    - name: "TREATMENT VEHICLE"
+      nodes:
+        - name: "CARRIER"
+        - name: "AMOUNT"
+    - name: "FORM"
+    - name: "ROUTE"
+    - name: "SINGLE DOSE"
+    - name: "TREATMENT"
+      data_types:
+        - codeable_concept
+    - name: "LOCATION"
+    - name: "PERIOD"
