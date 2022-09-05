@@ -1,14 +1,16 @@
 import yaml
 import os
 import csv
+from stringcase import pascalcase, snakecase
 
 from fhir.fhir import add_data_type
 from utility.utility import format_name
+from utility.ra_server import RaServer
 
 id_number = 1
 uuid_to_id = {}
-nodes = { "CRM_MODEL": [], "CRM_NODE": [], "CRM_DATA_TYPE": [], "CRM_DATA_TYPE_PROPERTY": [] }
-relationships = { "HAS_SUB_MODEL": [], "CONSISTS_OF": [], "HAS_DATA_TYPE": [], "HAS_PROPERTY": [] }
+nodes = { "ModelRoot": [], "ModelNode": [], "DataType": [], "DataTypeProperty": [] }
+relationships = { "HAS_SUB_MODEL": [], "HAS_NODE": [], "HAS_DATA_TYPE": [], "HAS_PROPERTY": [] }
 repeat = {}
 
 def process_nodes(node_set, parent_uri, rel_type, link_to_parent=True):
@@ -17,14 +19,14 @@ def process_nodes(node_set, parent_uri, rel_type, link_to_parent=True):
     uri_name = format_name(node["name"])
     node_uri = "%s/%s" % (parent_uri, uri_name)
     if not node["name"] in repeat:
-      nodes["CRM_NODE"].append({ "name": node["name"], "uri": node_uri })
+      nodes["ModelNode"].append({ "name": node["name"], "uri": node_uri })
       repeat[node["name"]] = node_uri
     else:
       node_uri = repeat[node["name"]]
     if link_to_parent:
       relationships[rel_type].append({"from": parent_uri, "to": node_uri})
     if "nodes" in node:
-      process_nodes(node["nodes"], node_uri, "CONSISTS_OF")
+      process_nodes(node["nodes"], node_uri, "HAS_NODE")
     else:
       if "data_types" in node:
         for data_type in node["data_types"]: 
@@ -33,11 +35,17 @@ def process_nodes(node_set, parent_uri, rel_type, link_to_parent=True):
 
 with open("source_data/clinical_recording_model.yaml") as file:
     model = yaml.load(file, Loader=yaml.FullLoader)
+
+    ns_s_json = RaServer().namespace_by_name("d4k CRM namespace")
+    print(ns_s_json)
+    ra_s_json = RaServer().registration_authority_by_namespace_uuid(ns_s_json['uuid'])
+    print(ra_s_json)
+
     base_uri = "http://id.d4k.dk/dataset/clinical_recording"
     common_uri = "%s/common" % (base_uri)
-    nodes["CRM_MODEL"].append({ "name": model["root"]["name"], "uri": base_uri })
+    nodes["ModelRoot"].append({ "name": model["root"]["name"], "uri": base_uri })
     parent_uri = base_uri
-    process_nodes(model["common"]["nodes"], common_uri, "CONSISTS_OF", False)
+    process_nodes(model["common"]["nodes"], common_uri, "HAS_NODE", False)
     process_nodes(model["root"]["nodes"], base_uri, "HAS_SUB_MODEL")
 
 def delete_dir(dir_path):
@@ -71,15 +79,13 @@ def write_relationships(the_data, csv_filename, id_field="id:ID"):
     writer = csv.DictWriter(csv_file, fieldnames=fieldnames, quoting=csv.QUOTE_ALL, lineterminator="\n")
     writer.writeheader()
     for row in the_data:
-      #print("FROM", uuid_to_id[row["from"]])
-      #print("TO", uuid_to_id[row["to"]])
       new_row = { ":START_ID": uuid_to_id[row["from"]], ":END_ID": uuid_to_id[row["to"]] }
       writer.writerow(new_row)
 
 delete_dir("load_data")
 
 for k, v in nodes.items():
-  csv_filename = "load_data/node-%s-1.csv" % (k.lower())
+  csv_filename = "load_data/node-%s-1.csv" % (snakecase(k))
   write_nodes(v, csv_filename)
 
 for k, v in relationships.items():

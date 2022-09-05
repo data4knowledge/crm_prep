@@ -91,7 +91,7 @@ def add_data_type(parent_uri, data_type, nodes, relationships):
     "name": name,
     "uri": item_uri
   }
-  nodes["CRM_DATA_TYPE"].append(record)
+  nodes["DataType"].append(record)
   for k, v in dt["child"].items():
     if 'recurse' in v:
       child_uri = add_data_type(item_uri, k, nodes, relationships)
@@ -102,7 +102,7 @@ def add_data_type(parent_uri, data_type, nodes, relationships):
         "name": name,
         "uri": child_uri
       }
-      nodes["CRM_DATA_TYPE_PROPERTY"].append(record)
+      nodes["DataTypeProperty"].append(record)
     relationships["HAS_PROPERTY"].append({"from": item_uri, "to": child_uri})
   return item_uri
     

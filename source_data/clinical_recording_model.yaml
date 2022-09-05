@@ -24,7 +24,7 @@ common:
     data_types:
     - date_time
 root: 
-  name: "CANONICAL MODEL"
+  name: "CLINICAL RECORDING MODEL"
   nodes:
   - name: "ADVERSE EVENT"
     nodes:
