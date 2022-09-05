@@ -4,7 +4,7 @@ import csv
 from stringcase import pascalcase, snakecase
 from uuid import uuid4
 from fhir.fhir import add_data_type
-from utility.utility import format_name
+from utility.utility import format_name, extend_uri
 from utility.ra_server import RaServer
 
 id_number = 1
@@ -52,8 +52,8 @@ with open("source_data/clinical_recording_model.yaml") as file:
     rs = { 'registration_status': "Draft", 'effective_date': "2022-09-01", 'until_date': "", 'uuid': str(uuid4()) }
     ra = { 'uri': ra_s_json['uri'] , 'uuid': str(uuid4()) }
 
-    base_uri = "http://id.d4k.dk/dataset/clinical_recording"
-    common_uri = "%s/common" % (base_uri)
+    base_uri = extend_uri(ns_s_json['value'], 'dataset')
+    common_uri = extend_uri(base_uri, 'common')
     nodes["ModelRoot"].append({ "name": model["root"]["name"], "uri": base_uri })
     nodes['ScopedIdentifier'].append(si)
     nodes['Namespace'].append(ns)
