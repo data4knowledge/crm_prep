@@ -88,6 +88,8 @@ root:
         data_types: 
         - coding
         - quantity
+        - boolean
+        - date
       - name: "RESULT OTHER"
         data_types: 
         - string
