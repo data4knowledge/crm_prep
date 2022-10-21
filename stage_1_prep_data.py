@@ -25,7 +25,7 @@ def process_nodes(node_set, parent_uri, rel_type, link_to_parent=True):
     uri_name = format_name(node["name"])
     node_uri = "%s/%s" % (parent_uri, uri_name)
     if not node["name"] in repeat:
-      nodes["ModelNode"].append({ "name": node["name"], "uri": node_uri })
+      nodes["ModelNode"].append({ "name": node["name"], "uri": node_uri, "uuid": uuid4() })
       repeat[node["name"]] = node_uri
     else:
       node_uri = repeat[node["name"]]

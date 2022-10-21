@@ -1,4 +1,4 @@
-
+from uuid import uuid4
 from utility.utility import *
 
 DATA_TYPES = {
@@ -109,7 +109,8 @@ def add_data_type(parent_uri, data_type, nodes, relationships):
   item_uri = "%s/%s" % (parent_uri, name)
   record = {
     "name": name,
-    "uri": item_uri
+    "uri": item_uri,
+    "uuid": uuid4() 
   }
   nodes["DataType"].append(record)
   for k, v in dt["child"].items():
@@ -120,7 +121,8 @@ def add_data_type(parent_uri, data_type, nodes, relationships):
       child_uri = "%s/%s" % (item_uri, format_name(name))
       record = {
         "name": name,
-        "uri": child_uri
+        "uri": child_uri,
+        "uuid": uuid4()
       }
       nodes["DataTypeProperty"].append(record)
     relationships["HAS_PROPERTY"].append({"from": item_uri, "to": child_uri})
