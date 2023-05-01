@@ -62,6 +62,7 @@ root:
     - name: "SEVERITY"
     - name: "EPIDEMIC / PANDEMIC"
     - name: "REASON PERFORMED"
+    - name: "POSITION"
     - name: "LOCATION"
     - name: "BODY SYSTEM"
     - name: "LOINC REF"
