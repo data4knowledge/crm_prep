@@ -49,7 +49,6 @@ db_name = sv.get('NEO4J_DB_NAME')
 url = sv.get('NEO4J_URI')
 usr = sv.get('NEO4J_USERNAME')
 pwd = sv.get('NEO4J_PASSWORD')
-print(url, usr, pwd)
 driver = GraphDatabase.driver(url, auth=(usr, pwd))
 
 print("Deleting database ...")
