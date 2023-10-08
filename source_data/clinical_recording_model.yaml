@@ -63,13 +63,21 @@ root:
     - name: "EPIDEMIC / PANDEMIC"
     - name: "REASON PERFORMED"
     - name: "POSITION"
+      data_types: 
+      - coding
     - name: "LOCATION"
+      data_types: 
+      - coding
     - name: "BODY SYSTEM"
     - name: "LOINC REF"
     - name: "LEAD"
     - name: "METHOD"
+      data_types: 
+      - coding
     - name: "RUN ID"
     - name: "SPECIMEN"
+      data_types: 
+      - coding
       nodes:
       - name: "CONDITION"
       - name: "USABLE"
