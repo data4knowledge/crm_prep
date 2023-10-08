@@ -76,9 +76,10 @@ root:
       - coding
     - name: "RUN ID"
     - name: "SPECIMEN"
-      data_types: 
-      - coding
       nodes:
+      - name: "SPECIMEN TYPE"
+        data_types: 
+        - coding
       - name: "CONDITION"
       - name: "USABLE"
       - name: "ANATOMIC REGION"
